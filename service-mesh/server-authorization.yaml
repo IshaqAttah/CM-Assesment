@@ -1,0 +1,29 @@
+apiVersion: policy.linkerd.io/v1beta1
+kind: Server
+metadata:
+  name: user-app-server
+  namespace: user-app
+spec:
+  podSelector:
+    matchLabels:
+      app: user-app
+  port: 8080
+  proxyProtocol: HTTP/1
+
+---
+apiVersion: policy.linkerd.io/v1beta1
+kind: ServerAuthorization
+metadata:
+  name: allow-app-namespace
+  namespace: user-app
+spec:
+  server:
+    name: user-app-server
+  client:
+    meshTLS:
+      serviceAccounts:
+        - name: user-app
+          namespace: user-app
+
+        - name: ingress-nginx
+          namespace: ingress-nginx

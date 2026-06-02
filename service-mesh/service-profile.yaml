@@ -1,0 +1,33 @@
+apiVersion: linkerd.io/v1alpha2
+kind: ServiceProfile
+metadata:
+  name: user-app.user-app.svc.cluster.local
+  namespace: user-app
+spec:
+  routes:
+    - name: GET /
+      condition:
+        method: GET
+        pathRegex: /
+
+    - name: GET /healthz
+      condition:
+        method: GET
+        pathRegex: /healthz
+      isRetryable: false
+
+    - name: GET /readyz
+      condition:
+        method: GET
+        pathRegex: /readyz
+      isRetryable: false
+
+    - name: GET /metrics
+      condition:
+        method: GET
+        pathRegex: /metrics
+      isRetryable: false
+  retryBudget:
+    retryRatio: 0.2
+    minRetriesPerSecond: 10
+    ttl: 10s
