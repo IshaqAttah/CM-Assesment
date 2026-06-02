@@ -6,8 +6,21 @@ resource "helm_release" "nginx_ingress" {
   namespace        = "ingress-nginx"
   create_namespace = true
 
-  set { name = "controller.service.type";             value = "NodePort" }
-  set { name = "controller.service.nodePorts.http";   value = "80" }
-  set { name = "controller.service.nodePorts.https";  value = "443" }
-  set { name = "controller.podAnnotations.linkerd\\.io/inject"; value = "enabled" }
+  set {
+    name  = "controller.service.type"
+    value = "NodePort"
+  }
+  set {
+    name  = "controller.service.nodePorts.http"
+    value = "80"
+  } 
+  set {
+    name  = "controller.service.nodePorts.https"
+    value = "443"
+  } 
+  
+  set {
+    name  = "controller.podAnnotations.linkerd\\.io/inject"
+    value = "enabled"
+  }
 }

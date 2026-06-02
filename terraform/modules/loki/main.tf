@@ -6,7 +6,17 @@ resource "helm_release" "loki_stack" {
   namespace        = "monitoring"
   create_namespace = false
 
-  set { name = "loki.enabled";     value = "true" }
-  set { name = "promtail.enabled"; value = "true" }
-  set { name = "grafana.enabled";  value = "false" }
+  set {
+    name  = "loki.enabled"
+    value = "true"
+  }
+  set {
+    name  = "promtail.enabled"
+    value = "true"
+  } 
+
+  set {
+    name  = "grafana.enabled"
+    value = "false"
+  }
 }

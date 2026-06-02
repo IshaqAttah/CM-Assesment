@@ -6,7 +6,13 @@ resource "helm_release" "chaos_mesh" {
   namespace        = "chaos-testing"
   create_namespace = true
 
-  # kind uses containerd as the container runtime.
-  set { name = "chaosDaemon.runtime";    value = "containerd" }
-  set { name = "chaosDaemon.socketPath"; value = "/run/containerd/containerd.sock" }
+
+    set {
+    name  = "chaosDaemon.runtime"
+    value = "containerd"
+  }
+  set {
+    name  = "chaosDaemon.socketPath"                         
+    value = "/run/containerd/containerd.sock"
+  }
 }

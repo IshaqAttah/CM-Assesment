@@ -5,5 +5,8 @@ resource "helm_release" "gatekeeper" {
   version          = "3.16.0"
   namespace        = "gatekeeper-system"
   create_namespace = true
-  set { name = "auditInterval"; value = "30" }
+  set { 
+    name = "auditInterval" 
+    value = "30" 
+    }
 }
