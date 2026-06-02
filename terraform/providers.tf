@@ -25,10 +25,10 @@ provider "kind" {}
 
 provider "helm" {
   kubernetes {
-    config_path = module.cluster.kubeconfig_path
+    config_path = "~/.kube/config"
   }
 }
 
 provider "kubernetes" {
-  config_path = module.cluster.kubeconfig_path
+  config_path = "~/.kube/config"
 }

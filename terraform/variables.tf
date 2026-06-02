@@ -7,5 +7,5 @@ variable "cluster_name" {
 variable "repo_url" {
   description = "URL of the Git repository for Flux to watch"
   type        = string
-  default     = "https://github.com/ishaqattah/CM-Assesment.git"
+  default     = "https://github.com/IshaqAttah/CM-Assesment.git"
 }

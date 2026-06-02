@@ -40,24 +40,6 @@ resource "kind_cluster" "this" {
   }
 }
 
-
-resource "kubernetes_manifest" "storage_class" {
-  manifest = {
-    apiVersion = "storage.k8s.io/v1"
-    kind       = "StorageClass"
-    metadata = {
-      name = "local-path"
-      annotations = {
-        "storageclass.kubernetes.io/is-default-class" = "true"
-      }
-    }
-    provisioner       = "rancher.io/local-path"
-    volumeBindingMode = "WaitForFirstConsumer"
-    reclaimPolicy     = "Delete"
-  }
-  depends_on = [kind_cluster.this]
-}
-
 output "kubeconfig_path" {
   value = kind_cluster.this.kubeconfig_path
 }
