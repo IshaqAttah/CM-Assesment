@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgresql
+  labels:
+    linkerd.io/inject: enabled
+    pod-security.kubernetes.io/enforce: restricted

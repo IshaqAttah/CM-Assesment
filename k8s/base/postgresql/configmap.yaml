@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-config
+  namespace: postgresql
+data:
+  POSTGRES_DB: my_app
+  POSTGRES_USER: my_app
+  POSTGRES_HOST: postgresql.postgresql.svc.cluster.local
+  POSTGRES_PORT: "5432"
