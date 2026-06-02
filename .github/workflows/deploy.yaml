@@ -71,10 +71,11 @@ jobs:
       - name: Run semantic-release
         id: release
         run: |
-          OUTPUT=$(npx semantic-release 2>&1)
-          echo "$OUTPUT"
-          if echo "$OUTPUT" | grep -q "Published release"; then
-            VERSION=$(echo "$OUTPUT" | grep -oP 'Published release \K[0-9]+\.[0-9]+\.[0-9]+')
+          npx semantic-release
+          git fetch --tags
+          LATEST_TAG=$(git tag --sort=-creatordate | grep "user-app-v" | head -1)
+          if [ -n "$LATEST_TAG" ]; then
+            VERSION=${LATEST_TAG#user-app-v}
             echo "new_release_published=true" >> $GITHUB_OUTPUT
             echo "new_release_version=$VERSION" >> $GITHUB_OUTPUT
           else
