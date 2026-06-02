@@ -67,12 +67,11 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install semantic-release dependencies
-        run: npm ci
-
       - name: Run semantic-release
         id: release
-        run: npx semantic-release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 23
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
