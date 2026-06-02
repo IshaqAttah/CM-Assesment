@@ -92,7 +92,7 @@ jobs:
     if: needs.release.outputs.new_release_published == 'true'
 
     env:
-      IMAGE: ghcr.io/${{ github.repository }}
+      IMAGE: ghcr.io/ishaqattah/cm-assesment
       VERSION: ${{ needs.release.outputs.new_release_version }}
       SHA_TAG: ${{ github.sha }}
 
@@ -141,7 +141,7 @@ jobs:
         run: |
           cd k8s/overlays/local
           kustomize edit set image \
-            ghcr.io/ishaqattah/user-app=ghcr.io/ishaqattah/user-app:${{ env.VERSION }}
+            ghcr.io/ishaqattah/user-app=ghcr.io/ishaqattah/cm-assesment:${{ env.VERSION }}
 
       - name: Commit manifest update
         uses: stefanzweifel/git-auto-commit-action@v5
