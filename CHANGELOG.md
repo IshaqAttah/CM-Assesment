@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.0.0...user-app-v1.1.0) (2026-06-02)
+
+
+### Features
+
+* **app:** add version endpoint ([ce03717](https://github.com/IshaqAttah/CM-Assesment/commit/ce03717d214b51bb8570e983a29c415c104120b5))
+
 ## 1.0.0 (2026-06-02)
 
 
