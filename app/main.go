@@ -33,20 +33,15 @@ func init() {
 	prometheus.MustRegister(httpRequestsTotal, httpRequestDuration, usersTotal)
 }
 
-// ── Structured JSON logger ────────────────────────────────────────────────────
-// log/slog (Go 1.21 stdlib) writes newline-delimited JSON to stdout.
-// Promtail reads container logs from /var/log/containers/ on each node
-// and ships them to Loki. Grafana queries Loki for log exploration.
 
 var logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 	Level: slog.LevelInfo,
 }))
 
-// ── Database pool (PostgreSQL via pgx) ───────────────────────────────────────
 
 var pool *pgxpool.Pool
 
-// ── Domain types ─────────────────────────────────────────────────────────────
+
 
 type User struct {
 	ID        int    `json:"id"`
