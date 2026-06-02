@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.3...user-app-v1.2.4) (2026-06-02)
+
+
+### Bug Fixes
+
+* **ci:** add packages write permission to build-and-deploy job ([ae0dd68](https://github.com/IshaqAttah/CM-Assesment/commit/ae0dd6882262bb1185d12eaf33cc0b20eb332112))
+
 ## [1.2.3](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.2...user-app-v1.2.3) (2026-06-02)
 
 
