@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.1...user-app-v1.2.2) (2026-06-02)
+
+
+### Bug Fixes
+
+* **ci:** separate scan and multi-arch push steps ([01d4e59](https://github.com/IshaqAttah/CM-Assesment/commit/01d4e59365a454f6aca2ede41b2a05faef8681ea))
+
 ## [1.2.1](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.0...user-app-v1.2.1) (2026-06-02)
 
 
