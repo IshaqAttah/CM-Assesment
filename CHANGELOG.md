@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.0...user-app-v1.2.1) (2026-06-02)
+
+
+### Bug Fixes
+
+* **ci:** lowercase image name for ghcr compatibility ([4cec296](https://github.com/IshaqAttah/CM-Assesment/commit/4cec2965e60af72f26d313595ad590b35a3101c0))
+
 ## [1.2.0](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.1.0...user-app-v1.2.0) (2026-06-02)
 
 
