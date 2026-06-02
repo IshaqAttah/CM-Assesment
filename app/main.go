@@ -135,7 +135,7 @@ func main() {
 	}
 }
 
-// ── Handlers ──────────────────────────────────────────────────────────────────
+// ──Handlers ──────────────────────────────────────────────────────────────────
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"service": "my-app", "status": "running"})

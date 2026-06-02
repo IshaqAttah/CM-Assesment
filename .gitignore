@@ -3,4 +3,5 @@ terraform/*.tfstate
 terraform/*.tfstate.*
 app/bin/
 .DS_Store
-terraform/user-app-dev-config
+terraform/user-app-dev-confignode_modules/
+node_modules/
