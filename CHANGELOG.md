@@ -1,3 +1,20 @@
+## [1.2.0](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.1.0...user-app-v1.2.0) (2026-06-02)
+
+
+### Features
+
+* **app:** trigger pipeline after ci fix ([1d0295f](https://github.com/IshaqAttah/CM-Assesment/commit/1d0295fb2a93c428de9f7da3ea5ea4e5202753ca))
+
+
+### Bug Fixes
+
+* **ci:** fix extra_plugins indentation in semantic-release action ([861446a](https://github.com/IshaqAttah/CM-Assesment/commit/861446a72447edaee28d301f93e117f6f7cf43a4))
+* **ci:** pin govulncheck version and upgrade to go 1.26.4 ([15a6dc5](https://github.com/IshaqAttah/CM-Assesment/commit/15a6dc5eaa96a51c9c000aeb0ae3eab6ddc7f710))
+* **ci:** revert to npx semantic-release with manual output capture ([ebabfaa](https://github.com/IshaqAttah/CM-Assesment/commit/ebabfaa26babb365bad28f3a2783cd16f77f55f3))
+* **ci:** use cycjimmy action to properly expose semantic-release outputs ([046afd9](https://github.com/IshaqAttah/CM-Assesment/commit/046afd98ccca5f0bb53f9aebd32abafadc9b005d))
+* **ci:** use git tags to detect semantic-release output ([04fadc4](https://github.com/IshaqAttah/CM-Assesment/commit/04fadc4a2c4236fe4d0db9ee8082fff67fdd13a7))
+* **ci:** use govulncheck@latest instead of pinned old version ([e6f5654](https://github.com/IshaqAttah/CM-Assesment/commit/e6f5654fef718e36c2e51f32ca4e67974fed20fa))
+
 ## [1.1.0](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.0.0...user-app-v1.1.0) (2026-06-02)
 
 
