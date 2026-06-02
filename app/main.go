@@ -117,6 +117,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", withMetrics(handleRoot, "/"))
+	mux.HandleFunc("/version", withMetrics(handleVersion, "/version"))
 	mux.HandleFunc("/users", withMetrics(handleUsers, "/users"))
 	mux.HandleFunc("/users/", withMetrics(handleUser, "/users/{id}"))
 	mux.HandleFunc("/startup", handleStartup)
@@ -138,7 +139,7 @@ func main() {
 // ──Handlers ──────────────────────────────────────────────────────────────────
 
 func handleRoot(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, map[string]string{"service": "my-app", "status": "running"})
+	writeJSON(w, http.StatusOK, map[string]string{"service": "user-app", "status": "running"})
 }
 
 func handleUsers(w http.ResponseWriter, r *http.Request) {
@@ -269,3 +270,6 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 	json.NewEncoder(w).Encode(v)
 }
 
+func handleVersion(w http.ResponseWriter, r *http.Request) {
+    writeJSON(w, http.StatusOK, map[string]string{"version": "1.1.0"})
+}
