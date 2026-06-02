@@ -1,4 +1,4 @@
-module github.com/yourname/my-app
+module github.com/ishaqattah/user-app
 
 go 1.21
 
