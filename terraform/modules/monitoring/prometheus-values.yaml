@@ -1,0 +1,31 @@
+nodeExporter:
+  enabled: false
+
+grafana:
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+  service:
+    type: ClusterIP
+  adminPassword: ""
+
+prometheus:
+  prometheusSpec:
+    scrapeInterval: 30s
+    retention: 24h
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "300m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+
+alertmanager:
+  enabled: true
+  service:
+    type: ClusterIP
+
+defaultRules:
+  create: true
