@@ -112,11 +112,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build multi-arch image
+      - name: Build single-arch image for scanning
         uses: docker/build-push-action@v5
         with:
           context: ./app
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: false
           load: true
           tags: |
@@ -132,10 +132,15 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: "1"
 
-      - name: Push image to ghcr.io
-        run: |
-          docker push ${{ env.IMAGE }}:${{ env.VERSION }}
-          docker push ${{ env.IMAGE }}:${{ env.SHA_TAG }}
+      - name: Build and push multi-arch image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./app
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ env.VERSION }}
+            ${{ env.IMAGE }}:${{ env.SHA_TAG }}
 
       - name: Update Kustomize image tag
         run: |
