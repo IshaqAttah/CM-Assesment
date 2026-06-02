@@ -1,3 +1,12 @@
+  terraform {
+    required_providers {
+      kind = {
+        source  = "tehcyx/kind" 
+        version = "~> 0.4"
+      }
+    }
+  }
+
 resource "kind_cluster" "this" {
   name = var.cluster_name
 
