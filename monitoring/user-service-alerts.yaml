@@ -1,0 +1,93 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: user-app-alerts
+  namespace: monitoring
+  labels:
+    app: user-app
+
+    release: prometheus-stack
+spec:
+  groups:
+    - name: user-app
+      rules:
+        - alert: ErrorBudgetBurn
+          expr: |
+            (
+              sum(rate(http_requests_total{job="user-app", status=~"5.."}[1h]))
+              /
+              sum(rate(http_requests_total{job="user-app"}[1h]))
+            ) > 0.01
+          for: 5m
+          labels:
+            severity: critical
+            type: slo
+          annotations:
+            summary: "SLO error budget burning"
+            description: "Error rate {{ $value | humanizePercentage }} exceeds 1% SLO for 5 minutes"
+            runbook_url: "https://github.com/yourname/user-app/wiki/runbook#slo-burn"
+
+        - alert: HighErrorRate
+          expr: |
+            (
+              sum(rate(http_requests_total{job="user-app", status=~"5.."}[5m]))
+              /
+              sum(rate(http_requests_total{job="user-app"}[5m]))
+            ) > 0.05
+          for: 2m
+          labels:
+            severity: warning
+            type: business
+          annotations:
+            summary: "High error rate on user-app"
+            description: "Error rate is {{ $value | humanizePercentage }} (threshold 5%) for 2 minutes"
+
+        - alert: HighLatency
+          expr: |
+            histogram_quantile(0.95,
+              rate(http_request_duration_seconds_bucket{job="user-app"}[5m])
+            ) > 1
+          for: 3m
+          labels:
+            severity: warning
+            type: performance
+          annotations:
+            summary: "High p95 latency on user-app"
+            description: "95th percentile latency is {{ $value }}s (threshold 1s) for 3 minutes"
+
+        - alert: ThroughputDrop
+          expr: |
+            (
+              avg(rate(http_requests_total{job="user-app"}[10m]))
+              /
+              avg(rate(http_requests_total{job="user-app"}[1h]))
+            ) < 0.5
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Traffic drop on user-app"
+            description: "Request rate dropped by >50% compared to 1h average"
+
+        - alert: ServiceDown
+          expr: up{job="user-app"} == 0
+          for: 1m
+          labels:
+            severity: critical
+            type: infrastructure
+          annotations:
+            summary: "user-app is down"
+            description: "user-app has been unreachable for 1 minute"
+
+        - alert: HighMemoryUsage
+          expr: |
+            container_memory_usage_bytes{
+              container="user-app",
+              namespace="user-app"
+            } > 100 * 1024 * 1024
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High memory usage"
+            description: "user-app memory > 100MB for 2 minutes (current: {{ $value | humanize }})"
