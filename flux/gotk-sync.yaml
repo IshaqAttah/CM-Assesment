@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: user-app-repo
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/yourname/user-app.git
+  ref:
+    branch: main
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./flux
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: user-app-repo
