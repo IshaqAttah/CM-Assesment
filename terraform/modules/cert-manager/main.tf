@@ -11,12 +11,23 @@ resource "helm_release" "cert_manager" {
   }
 }
 
-resource "kubernetes_manifest" "selfsigned_issuer" {
-  manifest = {
-    apiVersion = "cert-manager.io/v1"
-    kind       = "ClusterIssuer"
-    metadata   = { name = "selfsigned-issuer" }
-    spec       = { selfSigned = {} }
+resource "null_resource" "selfsigned_issuer" {
+  provisioner "local-exec" {
+    environment = {
+      KUBECONFIG = var.kubeconfig_path
+    }
+    command = <<-EOT
+      kubectl wait --for=condition=Available deployment/cert-manager -n cert-manager --timeout=120s
+      kubectl apply -f - <<EOF
+      apiVersion: cert-manager.io/v1
+      kind: ClusterIssuer
+      metadata:
+        name: selfsigned-issuer
+      spec:
+        selfSigned: {}
+      EOF
+    EOT
   }
+
   depends_on = [helm_release.cert_manager]
 }
