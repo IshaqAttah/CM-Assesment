@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.2...user-app-v1.2.3) (2026-06-02)
+
+
+### Bug Fixes
+
+* **app:** upgrade pgx to v5.9.0 and x/crypto to v0.35.0 to fix critical CVEs ([3c2e747](https://github.com/IshaqAttah/CM-Assesment/commit/3c2e74769c456ea0d300163d15e0a96481c56cf0))
+
 ## [1.2.2](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.1...user-app-v1.2.2) (2026-06-02)
 
 
