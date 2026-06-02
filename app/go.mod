@@ -1,6 +1,6 @@
 module github.com/ishaqattah/user-app
 
-go 1.24
+go 1.24.4
 
 require (
 	github.com/jackc/pgx/v5 v5.6.0
