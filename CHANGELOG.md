@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.4...user-app-v1.2.5) (2026-06-03)
+
+
+### Bug Fixes
+
+* **app:** trigger pipeline ([021d476](https://github.com/IshaqAttah/CM-Assesment/commit/021d476362e68e8fd5a713073686d4c2c979583d))
+
 ## [1.2.4](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.2.3...user-app-v1.2.4) (2026-06-02)
 
 
