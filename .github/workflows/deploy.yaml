@@ -152,8 +152,10 @@ jobs:
             ghcr.io/ishaqattah/user-app=ghcr.io/ishaqattah/cm-assesment:${{ env.VERSION }}
 
       - name: Commit manifest update
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "ci: update image to ${{ env.VERSION }}"
-          file_pattern: k8s/overlays/local/kustomization.yaml
-          branch: main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add k8s/overlays/local/kustomization.yaml
+          git commit -m "ci: update image to ${{ env.VERSION }}" || echo "No changes to commit"
+          git push origin main
