@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - serviceaccount.yaml
+  - postgresql-secret-userapp.yaml
   - user-app-db-config.yaml
   - deployment.yaml
   - service.yaml
