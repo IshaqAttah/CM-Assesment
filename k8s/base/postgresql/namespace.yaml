@@ -5,4 +5,4 @@ metadata:
   annotations:
     linkerd.io/inject: enabled
   labels:
-    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce: baseline
