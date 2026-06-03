@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - serviceaccount.yaml
   - user-app-db-config.yaml
   - deployment.yaml
   - service.yaml
