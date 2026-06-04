@@ -61,5 +61,5 @@ linkerd:
   inject: enabled
 
 podSecurity:
-  enforce: baseline
+  enforce: privileged
 
