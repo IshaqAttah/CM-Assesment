@@ -9,7 +9,6 @@ spec:
   dependsOn:
     - name: cert-manager
     - name: ingress-nginx
-    - name: flagger
   chart:
     spec:
       chart: ./charts/user-app
