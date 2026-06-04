@@ -53,3 +53,13 @@ canary:
       min: 99
     duration:
       max: 500
+
+httpRoute:
+  enabled: false
+
+linkerd:
+  inject: enabled
+
+podSecurity:
+  enforce: baseline
+

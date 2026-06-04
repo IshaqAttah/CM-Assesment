@@ -1,10 +1,10 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: { { .Release.Name } }
-  namespace: { { .Release.Namespace } }
-  labels: { { - include "user-app.labels" . | nindent 4 } }
+  name: {{.Release.Name}}
+  namespace: {{.Release.Namespace}}
+  labels: {{- include "user-app.labels" . | nindent 4}}
 spec:
-  minAvailable: { { sub .Values.autoscaling.minReplicas 1 } }
+  minAvailable: {{sub .Values.autoscaling.minReplicas 1}}
   selector:
-    matchLabels: { { - include "user-app.selectorLabels" . | nindent 6 } }
+    matchLabels: {{- include "user-app.selectorLabels" . | nindent 6}}

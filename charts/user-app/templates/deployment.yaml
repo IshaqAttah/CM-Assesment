@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: { { .Release.Name } }
-  namespace: { { .Release.Namespace } }
-  labels: { { - include "user-app.labels" . | nindent 4 } }
+  name: {{.Release.Name}}
+  namespace: {{.Release.Namespace}}
+  labels: {{- include "user-app.labels" . | nindent 4}}
 spec:
-  replicas: { { .Values.replicaCount } }
+  replicas: {{.Values.replicaCount}}
 
   selector:
-    matchLabels: { { - include "user-app.selectorLabels" . | nindent 6 } }
+    matchLabels: {{- include "user-app.selectorLabels" . | nindent 6}}
 
   strategy:
     type: RollingUpdate
@@ -18,23 +18,23 @@ spec:
 
   template:
     metadata:
-      labels: { { - include "user-app.selectorLabels" . | nindent 8 } }
+      labels: {{- include "user-app.selectorLabels" . | nindent 8}}
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "{{ .Values.service.port }}"
         prometheus.io/path: "/metrics"
 
     spec:
-      serviceAccountName: { { .Release.Name } }
+      serviceAccountName: {{.Release.Name}}
 
       containers:
-        - name: { { .Release.Name } }
+        - name: {{.Release.Name}}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: { { .Values.image.pullPolicy } }
+          imagePullPolicy: {{.Values.image.pullPolicy}}
 
           ports:
             - name: http
-              containerPort: { { .Values.service.port } }
+              containerPort: {{.Values.service.port}}
               protocol: TCP
 
           env:
@@ -44,31 +44,31 @@ spec:
             - name: DATABASE_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: { { .Values.database.configMapName } }
+                  name: {{.Values.database.configMapName}}
                   key: POSTGRES_HOST
 
             - name: DATABASE_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: { { .Values.database.configMapName } }
+                  name: {{.Values.database.configMapName}}
                   key: POSTGRES_PORT
 
             - name: DATABASE_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: { { .Values.database.configMapName } }
+                  name: {{.Values.database.configMapName}}
                   key: POSTGRES_DB
 
             - name: DATABASE_USER
               valueFrom:
                 configMapKeyRef:
-                  name: { { .Values.database.configMapName } }
+                  name: {{.Values.database.configMapName}}
                   key: POSTGRES_USER
 
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: { { .Values.database.secretName } }
+                  name: {{.Values.database.secretName}}
                   key: POSTGRES_PASSWORD
 
           securityContext:
@@ -81,23 +81,23 @@ spec:
 
           resources:
             requests:
-              cpu: { { .Values.resources.requests.cpu } }
-              memory: { { .Values.resources.requests.memory } }
+              cpu: {{.Values.resources.requests.cpu}}
+              memory: {{.Values.resources.requests.memory}}
             limits:
-              cpu: { { .Values.resources.limits.cpu } }
-              memory: { { .Values.resources.limits.memory } }
+              cpu: {{.Values.resources.limits.cpu}}
+              memory: {{.Values.resources.limits.memory}}
 
           startupProbe:
             httpGet:
               path: /startup
-              port: { { .Values.service.port } }
+              port: {{.Values.service.port}}
             failureThreshold: 30
             periodSeconds: 10
 
           livenessProbe:
             httpGet:
               path: /healthz
-              port: { { .Values.service.port } }
+              port: {{.Values.service.port}}
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
@@ -106,7 +106,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /readyz
-              port: { { .Values.service.port } }
+              port: {{.Values.service.port}}
             initialDelaySeconds: 3
             periodSeconds: 5
             failureThreshold: 2
