@@ -15,8 +15,7 @@ metadata:
   name: allow-ingress-controller
   namespace: {{.Release.Namespace}}
 spec:
-  podSelector:
-    matchLabels: {{- include "user-app.selectorLabels" . | nindent 6}}
+  podSelector: {}
   policyTypes:
     - Ingress
   ingress:
@@ -34,8 +33,7 @@ metadata:
   name: allow-postgres-egress
   namespace: {{.Release.Namespace}}
 spec:
-  podSelector:
-    matchLabels: {{- include "user-app.selectorLabels" . | nindent 6}}
+  podSelector: {}
   policyTypes:
     - Egress
   egress:
@@ -53,8 +51,7 @@ metadata:
   name: allow-dns-egress
   namespace: {{.Release.Namespace}}
 spec:
-  podSelector:
-    matchLabels: {{- include "user-app.selectorLabels" . | nindent 6}}
+  podSelector: {}
   policyTypes:
     - Egress
   egress:
