@@ -1,0 +1,36 @@
+{{- if .Values.canary.enabled }}
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "user-app.labels" . | nindent 4 }}
+spec:
+  provider: {{ .Values.canary.provider }}
+
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}
+
+  service:
+    port: {{ .Values.service.port }}
+
+  analysis:
+    interval: 1m
+    threshold: {{ .Values.canary.threshold }}
+    maxWeight: {{ .Values.canary.maxWeight }}
+    stepWeight: {{ .Values.canary.stepWeight }}
+
+    metrics:
+      - name: request-success-rate
+        thresholdRange:
+          min: {{ .Values.canary.metrics.successRate.min }}
+        interval: 1m
+
+      - name: request-duration
+        thresholdRange:
+          max: {{ .Values.canary.metrics.duration.max }}
+        interval: 1m
+{{- end }}

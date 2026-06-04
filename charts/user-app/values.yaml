@@ -1,0 +1,55 @@
+image:
+  repository: ghcr.io/ishaqattah/cm-assesment
+  tag: "1.2.6"
+  pullPolicy: Always
+
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  host: user-app.local
+  clusterIssuer: selfsigned-issuer
+  tlsSecretName: user-app-tls
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 6
+  cpuUtilization: 70
+  memoryUtilization: 75
+  scaleUp:
+    stabilizationWindowSeconds: 30
+    percentValue: 100
+    periodSeconds: 15
+  scaleDown:
+    stabilizationWindowSeconds: 60
+    percentValue: 50
+    periodSeconds: 30
+
+resources:
+  requests:
+    cpu: "50m"
+    memory: "64Mi"
+  limits:
+    cpu: "200m"
+    memory: "128Mi"
+
+database:
+  configMapName: postgresql-config
+  secretName: postgresql-secret
+
+canary:
+  enabled: true
+  provider: linkerd
+  stepWeight: 10
+  maxWeight: 50
+  threshold: 5
+  metrics:
+    successRate:
+      min: 99
+    duration:
+      max: 500

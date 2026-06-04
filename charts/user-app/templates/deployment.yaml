@@ -1,71 +1,74 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-app
-  namespace: user-app
+  name: { { .Release.Name } }
+  namespace: { { .Release.Namespace } }
+  labels: { { - include "user-app.labels" . | nindent 4 } }
 spec:
-  replicas: 2
+  replicas: { { .Values.replicaCount } }
 
   selector:
-    matchLabels:
-      app: user-app
+    matchLabels: { { - include "user-app.selectorLabels" . | nindent 6 } }
 
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-
       maxSurge: 1
 
   template:
     metadata:
-      labels:
-        app: user-app
+      labels: { { - include "user-app.selectorLabels" . | nindent 8 } }
       annotations:
         prometheus.io/scrape: "true"
-        prometheus.io/port: "8080"
+        prometheus.io/port: "{{ .Values.service.port }}"
         prometheus.io/path: "/metrics"
+
     spec:
-      serviceAccountName: user-app
+      serviceAccountName: { { .Release.Name } }
 
       containers:
-        - name: user-app
-
-          image: ghcr.io/ishaqattah/user-app:latest
-          imagePullPolicy: Always
+        - name: { { .Release.Name } }
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: { { .Values.image.pullPolicy } }
 
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: { { .Values.service.port } }
               protocol: TCP
 
           env:
             - name: PORT
-              value: "8080"
+              value: "{{ .Values.service.port }}"
+
             - name: DATABASE_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: postgresql-config
+                  name: { { .Values.database.configMapName } }
                   key: POSTGRES_HOST
+
             - name: DATABASE_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: postgresql-config
+                  name: { { .Values.database.configMapName } }
                   key: POSTGRES_PORT
+
             - name: DATABASE_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: postgresql-config
+                  name: { { .Values.database.configMapName } }
                   key: POSTGRES_DB
+
             - name: DATABASE_USER
               valueFrom:
                 configMapKeyRef:
-                  name: postgresql-config
+                  name: { { .Values.database.configMapName } }
                   key: POSTGRES_USER
+
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgresql-secret
+                  name: { { .Values.database.secretName } }
                   key: POSTGRES_PASSWORD
 
           securityContext:
@@ -78,23 +81,23 @@ spec:
 
           resources:
             requests:
-              cpu: "50m"
-              memory: "64Mi"
+              cpu: { { .Values.resources.requests.cpu } }
+              memory: { { .Values.resources.requests.memory } }
             limits:
-              cpu: "200m"
-              memory: "128Mi"
+              cpu: { { .Values.resources.limits.cpu } }
+              memory: { { .Values.resources.limits.memory } }
 
           startupProbe:
             httpGet:
               path: /startup
-              port: 8080
+              port: { { .Values.service.port } }
             failureThreshold: 30
             periodSeconds: 10
 
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 8080
+              port: { { .Values.service.port } }
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
@@ -103,7 +106,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /readyz
-              port: 8080
+              port: { { .Values.service.port } }
             initialDelaySeconds: 3
             periodSeconds: 5
             failureThreshold: 2

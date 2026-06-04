@@ -1,0 +1,46 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: { { .Release.Name } }
+  namespace: { { .Release.Namespace } }
+  labels: { { - include "user-app.labels" . | nindent 4 } }
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: { { .Release.Name } }
+
+  minReplicas: { { .Values.autoscaling.minReplicas } }
+  maxReplicas: { { .Values.autoscaling.maxReplicas } }
+
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds:
+        { { .Values.autoscaling.scaleUp.stabilizationWindowSeconds } }
+      policies:
+        - type: Percent
+          value: { { .Values.autoscaling.scaleUp.percentValue } }
+          periodSeconds: { { .Values.autoscaling.scaleUp.periodSeconds } }
+
+    scaleDown:
+      stabilizationWindowSeconds:
+        { { .Values.autoscaling.scaleDown.stabilizationWindowSeconds } }
+      policies:
+        - type: Percent
+          value: { { .Values.autoscaling.scaleDown.percentValue } }
+          periodSeconds: { { .Values.autoscaling.scaleDown.periodSeconds } }
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: { { .Values.autoscaling.cpuUtilization } }
+
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: { { .Values.autoscaling.memoryUtilization } }

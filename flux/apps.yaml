@@ -1,21 +1,24 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
 metadata:
-  name: apps
+  name: user-app
   namespace: flux-system
+
 spec:
   interval: 5m
-  path: ./k8s/overlays/local
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: user-app-repo
+  targetNamespace: user-app
+
   dependsOn:
-    - name: infrastructure
-    - name: gatekeeper
+    - name: infrastructure-releases
     - name: postgresql
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: user-app
-      namespace: user-app
+
+  chart:
+    spec:
+      chart: ./charts/user-app
+      sourceRef:
+        kind: GitRepository
+        name: user-app-repo
+
+  values:
+    image:
+      tag: "1.2.6"
