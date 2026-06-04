@@ -3,22 +3,19 @@ kind: HelmRelease
 metadata:
   name: user-app
   namespace: flux-system
-
 spec:
   interval: 5m
   targetNamespace: user-app
-
   dependsOn:
-    - name: infrastructure-releases
-    - name: postgresql
-
+    - name: cert-manager
+    - name: ingress-nginx
+    - name: flagger
   chart:
     spec:
       chart: ./charts/user-app
       sourceRef:
         kind: GitRepository
         name: user-app-repo
-
   values:
     image:
       tag: "1.2.6"
