@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
   - gotk-sync.yaml
+  - infrastructure-sources.yaml
+  - infrastructure-releases.yaml
   - infrastructure.yaml
   - apps.yaml
   - monitoring.yaml
