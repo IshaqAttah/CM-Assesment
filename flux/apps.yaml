@@ -8,7 +8,6 @@ spec:
   releaseName: user-app
   targetNamespace: user-app
   install:
-    disableWait: true
     createNamespace: true
     remediation:
       retries: 3
@@ -17,6 +16,8 @@ spec:
     remediation:
       retries: 3
       remediateLastFailure: true
+  rollback:
+    disableWait: true
   chart:
     spec:
       chart: ./charts/user-app
