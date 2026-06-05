@@ -15,13 +15,14 @@ spec:
     name: {{ .Release.Name }}
 
   {{- if eq .Values.canary.provider "nginx" }}
-  ingresses:
-    - name: {{ .Release.Name }}
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: {{ .Release.Name }}
   {{- end }}
 
   service:
     port: {{ .Values.service.port }}
-    targetPort: {{ .Values.service.port }}
 
   analysis:
     interval: 1m
