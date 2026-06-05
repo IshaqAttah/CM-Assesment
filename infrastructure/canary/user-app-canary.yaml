@@ -18,14 +18,6 @@ spec:
     targetPort: 8080
   analysis:
     interval: 1m
+    threshold: 5
     maxWeight: 50
     stepWeight: 10
-    metrics:
-      - name: request-success-rate
-        thresholdRange:
-          min: 99
-        interval: 1m
-      - name: request-duration
-        thresholdRange:
-          max: 500
-        interval: 1m
