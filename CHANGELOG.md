@@ -19,6 +19,30 @@
 * improve request handling ([2fae9ba](https://github.com/IshaqAttah/CM-Assesment/commit/2fae9badbc9ef7ba05781ce48b939cfd62b02233))
 * improve request handling ([0954ca8](https://github.com/IshaqAttah/CM-Assesment/commit/0954ca81aace8b2a551b094f364179e8ed2a55e5))
 * move Canary out of Helm chart to prevent Helm/Flagger conflict ([fdff56e](https://github.com/IshaqAttah/CM-Assesment/commit/fdff56e61f9589428458870f05587cd40ca817a3))
+* update root handler response ([00ac912](https://github.com/IshaqAttah/CM-Assesment/commit/00ac912d2110288d848709497d7990248fd6616b))
+* use ingressRef for nginx canary, restore install.disableWait ([5080b92](https://github.com/IshaqAttah/CM-Assesment/commit/5080b92a83b84a33ba4a2f1d524dfe5447f7d59a))
+
+## [1.1.0](https://github.com/IshaqAttah/CM-Assesment/compare/user-app-v1.0.0...user-app-v1.1.0) (2026-06-05)
+
+
+### Features
+
+* wire SealedSecret and Canary into Flux GitOps reconciliation ([42e5460](https://github.com/IshaqAttah/CM-Assesment/commit/42e5460f5b0ee6bb3564ef91173e00e93df316c3))
+
+
+### Bug Fixes
+
+* add missing sourceRef.kind to infrastructure-secrets Kustomization ([96c8dcf](https://github.com/IshaqAttah/CM-Assesment/commit/96c8dcf8295f32b5e010a6225663ee18f87f337b))
+* add missing threshold to canary analysis, remove metrics ([46c3a4d](https://github.com/IshaqAttah/CM-Assesment/commit/46c3a4d80cadd4cf6b10ce92c1398afca3e396be))
+* add postgresql templates, fix flagger meshProvider, bump chart to 0.1.1 ([597e6ce](https://github.com/IshaqAttah/CM-Assesment/commit/597e6ce7ec56bf0b32f10e108a3350b31d706025))
+* add rollback.disableWait to prevent rollback timeout ([63c08f7](https://github.com/IshaqAttah/CM-Assesment/commit/63c08f77a9f634ab1ee5cfc5ec1f084cbf713a01))
+* fix SealedSecret ([4680394](https://github.com/IshaqAttah/CM-Assesment/commit/4680394344b28f3f50dca512b6db947a4b377926))
+* **flagger:** correct metricsServer URL, switch canary provider to nginx ([2867109](https://github.com/IshaqAttah/CM-Assesment/commit/286710946f6bcd304c935ac5f71272af7d8138c1))
+* **flagger:** correct prometheus URL and nginx canary ingress reference ([6b10207](https://github.com/IshaqAttah/CM-Assesment/commit/6b102070f4a71d548764da21d31dd1ae354a1dfc))
+* **flux:** disable wait for user-app to allow Flagger to own rollout ([5718f53](https://github.com/IshaqAttah/CM-Assesment/commit/5718f53962874a13d8498cb77c72b0ebfcf47828))
+* improve request handling ([2fae9ba](https://github.com/IshaqAttah/CM-Assesment/commit/2fae9badbc9ef7ba05781ce48b939cfd62b02233))
+* improve request handling ([0954ca8](https://github.com/IshaqAttah/CM-Assesment/commit/0954ca81aace8b2a551b094f364179e8ed2a55e5))
+* move Canary out of Helm chart to prevent Helm/Flagger conflict ([fdff56e](https://github.com/IshaqAttah/CM-Assesment/commit/fdff56e61f9589428458870f05587cd40ca817a3))
 * use ingressRef for nginx canary, restore install.disableWait ([5080b92](https://github.com/IshaqAttah/CM-Assesment/commit/5080b92a83b84a33ba4a2f1d524dfe5447f7d59a))
 
 ## 1.0.0 (2026-06-05)
