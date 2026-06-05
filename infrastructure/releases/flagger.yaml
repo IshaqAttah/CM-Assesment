@@ -17,6 +17,6 @@ spec:
         name: flagger
         namespace: flux-system
   values:
-    metricsServer: "http://monitoring-kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+    metricsServer: "http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090"
   install:
     createNamespace: false

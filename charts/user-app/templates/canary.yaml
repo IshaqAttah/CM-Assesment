@@ -14,8 +14,14 @@ spec:
     kind: Deployment
     name: {{ .Release.Name }}
 
+  {{- if eq .Values.canary.provider "nginx" }}
+  ingresses:
+    - name: {{ .Release.Name }}
+  {{- end }}
+
   service:
     port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.port }}
 
   analysis:
     interval: 1m
