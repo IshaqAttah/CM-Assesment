@@ -1,5 +1,5 @@
 image:
-  repository: ghcr.io/ishaqattah/cm-assesment
+  repository: ghcr.io/ishaqattah/user-app
   tag: "1.2.6"
   pullPolicy: Always
 
@@ -62,4 +62,3 @@ linkerd:
 
 podSecurity:
   enforce: privileged
-
