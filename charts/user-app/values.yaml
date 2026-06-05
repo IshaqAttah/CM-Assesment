@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/ishaqattah/user-app
-  tag: "1.2.6"
+  tag: "1.0.0"
   pullPolicy: Always
 
 replicaCount: 2
