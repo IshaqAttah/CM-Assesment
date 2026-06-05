@@ -273,3 +273,5 @@ func writeJSON(w http.ResponseWriter, status int, v any) {
 func handleVersion(w http.ResponseWriter, r *http.Request) {
     writeJSON(w, http.StatusOK, map[string]string{"version": "1.1.0"})
 }
+
+
