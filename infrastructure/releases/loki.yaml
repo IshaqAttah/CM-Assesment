@@ -25,8 +25,10 @@ spec:
       storage:
         type: filesystem
       useTestSchema: true
-      chunksCache:
-        enabled: false
+    chunksCache:
+      enabled: false
+    resultsCache:
+      enabled: false
     singleBinary:
       replicas: 1
     read:
