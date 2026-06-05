@@ -45,7 +45,6 @@ database:
   port: "5432"
   name: my_app
   user: my_app
-  password: UserAppPass123!
 
 canary:
   enabled: true
