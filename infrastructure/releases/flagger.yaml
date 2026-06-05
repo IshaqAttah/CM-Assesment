@@ -7,7 +7,6 @@ spec:
   interval: 1h
   targetNamespace: linkerd
   dependsOn:
-    - name: linkerd-control-plane
     - name: kube-prometheus-stack
   chart:
     spec:
@@ -18,8 +17,6 @@ spec:
         name: flagger
         namespace: flux-system
   values:
-    meshProvider: linkerd
-    metricsServer:
-      http: kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
+    metricsServer: "http://monitoring-kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
   install:
     createNamespace: false

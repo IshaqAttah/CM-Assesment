@@ -44,7 +44,7 @@ database:
 
 canary:
   enabled: true
-  provider: linkerd
+  provider: nginx
   stepWeight: 10
   maxWeight: 50
   threshold: 5
