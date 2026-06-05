@@ -12,3 +12,5 @@ resources:
   - service-mesh.yaml
   - gatekeeper.yaml
   - postgresql.yaml
+  - infrastructure-secrets.yaml
+  - infrastructure-canary.yaml
