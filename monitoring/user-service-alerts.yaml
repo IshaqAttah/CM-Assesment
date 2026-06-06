@@ -25,7 +25,7 @@ spec:
           annotations:
             summary: "SLO error budget burning"
             description: "Error rate {{ $value | humanizePercentage }} exceeds 1% SLO for 5 minutes"
-            runbook_url: "https://github.com/yourname/user-app/wiki/runbook#slo-burn"
+            runbook_url: "https://github.com/ishaqattah/user-app/wiki/runbook#slo-burn"
 
         - alert: HighErrorRate
           expr: |

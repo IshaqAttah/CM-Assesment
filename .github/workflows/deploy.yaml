@@ -58,13 +58,8 @@ jobs:
         id: release
         run: |
           npx semantic-release
-          git fetch --tags
-          LATEST_TAG=$(git tag --sort=-creatordate | grep "user-app-v" | head -1)
-          if [ -n "$LATEST_TAG" ]; then
-            VERSION=${LATEST_TAG#user-app-v}
-            echo "new_release_published=true" >> $GITHUB_OUTPUT
-            echo "new_release_version=$VERSION" >> $GITHUB_OUTPUT
-          else
+          # Fallback: only set if semantic-release didn't write them (no new release)
+          if ! grep -q "new_release_published" "$GITHUB_OUTPUT"; then
             echo "new_release_published=false" >> $GITHUB_OUTPUT
             echo "new_release_version=" >> $GITHUB_OUTPUT
           fi
@@ -125,9 +120,10 @@ jobs:
       - name: Update Helm chart image tag
         run: |
           sed -i 's/^  tag: .*/  tag: "${{ env.VERSION }}"/' charts/user-app/values.yaml
+          sed -i 's/^appVersion: .*/appVersion: "${{ env.VERSION }}"/' charts/user-app/Chart.yaml
 
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "ci: update user-app image to ${{ env.VERSION }} [skip ci]"
-          file_pattern: charts/user-app/values.yaml
+          file_pattern: charts/user-app/values.yaml charts/user-app/Chart.yaml
