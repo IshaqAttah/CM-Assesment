@@ -93,29 +93,34 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push (SHA tag)
+      - name: Build and export to tar (no push)
         uses: docker/build-push-action@v6
         with:
           context: ./app
           platforms: linux/amd64,linux/arm64
-          push: true
+          push: false
+          outputs: type=oci,dest=/tmp/image.tar
           tags: ${{ env.IMAGE }}:${{ github.sha }}
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.IMAGE }}:${{ github.sha }}
+          input: /tmp/image.tar
           format: table
           vuln-type: os,library
           severity: HIGH,CRITICAL
           exit-code: "1"
 
-      - name: Promote to release version
-        run: |
-          docker buildx imagetools create \
-            -t ${{ env.IMAGE }}:${{ env.VERSION }} \
-            -t ${{ env.IMAGE }}:latest \
+      - name: Push to registry (scan passed)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./app
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
             ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:${{ env.VERSION }}
+            ${{ env.IMAGE }}:latest
 
       - name: Update Helm chart image tag
         run: |

@@ -19,18 +19,48 @@ spec:
           image: nginx
           ports:
             - containerPort: 80
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: my-nginx
+#   labels:
+#     app: my-nginx
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: my-nginx
+#   ports:
+#     - port: 8080
+#       targetPort: 80
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx
-  labels:
-    app: my-nginx
-spec:
-  type: ClusterIP
-  selector:
-    app: my-nginx
-  ports:
-    - port: 8080
-      targetPort: 80
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: myNginx
+# spec:
+#   selector:
+#     matchLabels:
+#       app: myNginx
+#   replicas: 2
+#   template:
+#     metadata:
+#       labels:
+#         app: myNgnx
+#     spec:
+#       containers:
+#         - name: myNginx
+#           image: nginx
+#           ports:
+#             - containerPort: 8000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: myNginx
+#   labels:
+#     app: myNginx
+# spec:
+#   ports:
+#     - port: 8080
